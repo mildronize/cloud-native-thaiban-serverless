@@ -8,7 +8,7 @@ export async function setup() {
     window.dispatchEvent(new Event('fireConfetti'));
   };
 
-  fireButton.addEventListener('click', () => fireConfetti());
+  // fireButton.addEventListener('click', () => fireConfetti());
 
   const apiBaseUrl = 'https://thadaw-thaiban-api.azurewebsites.net';
 
