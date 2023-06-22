@@ -1,8 +1,5 @@
 import './style.css';
-import './table.css';
 import * as signalR from '@microsoft/signalr';
-// import { loadConfettiPreset } from "tsparticles-preset-confetti";
-// import { tsParticles } from "tsparticles-engine";
 
 export async function setup() {
   const fireButton = document.querySelector<HTMLButtonElement>('#fireButton')!;
@@ -22,6 +19,7 @@ export async function setup() {
 
   connection.on('newMessage', message => {
     console.log(`newMessage: ${message}`);
+    fireConfetti();
   });
 
   connection.start().catch(console.error);
