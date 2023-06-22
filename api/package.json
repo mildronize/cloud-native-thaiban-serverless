@@ -1,0 +1,36 @@
+{
+  "name": "basic",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "serve": "run-s build start",
+    "debug": "tsc && npm run start",
+    "build": "cross-env nammatham_env=build tsx src/startup.ts && tsc",
+    "build:production": "run-s build && npm prune --production",
+    "serve:watch": "nodemon --watch src --ext ts --exec 'npm run serve'",
+    "build:watch": "nodemon --watch src --ext ts --delay 0.5 --exec 'npm run build'",
+    "start:watch": "nodemon --watch dist --delay 0.3 --exec  'npm start'",
+    "start": "func host start --cors *",
+    "dev": "run-s serve:watch",
+    "azurite": "npx azurite --silent --location ./.azurite --debug ./.azurite/debug.log",
+    "deploy:dev": "npm run build:production && func azure functionapp publish thadaw-thaiban-api"
+  },
+  "author": "Thada Wangthammang",
+  "license": "MIT",
+  "dependencies": {
+    "inversify": "^6.0.1",
+    "nammatham": "^1.3.0",
+    "reflect-metadata": "^0.1.13"
+  },
+  "devDependencies": {
+    "@azure/functions": "^3.5.0",
+    "@type-challenges/utils": "^0.1.1",
+    "@types/node": "^18.13.0",
+    "cross-env": "^7.0.3",
+    "nodemon": "^2.0.20",
+    "npm-run-all": "^4.1.5",
+    "tsx": "^3.12.3",
+    "typescript": "^4.9.5"
+  }
+}
