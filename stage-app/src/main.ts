@@ -3,7 +3,7 @@ import * as signalR from '@microsoft/signalr';
 
 export async function setup() {
   let counter = 0;
-  const fireButton = document.querySelector<HTMLButtonElement>('#fireButton')!;
+  const connectingMessage = document.querySelector<HTMLDivElement>('#connecting-message')!;
   const counterElement = document.querySelector<HTMLSpanElement>('#counter')!;
 
   const fireConfetti = async () => {
@@ -26,7 +26,15 @@ export async function setup() {
     counterElement.innerHTML = `${counter}`;
   });
 
-  connection.start().catch(console.error);
+  try {
+    await connection.start();
+    connectingMessage.style.display = 'none';
+  } catch (err) {
+    const message = 'Connection failed. Retrying...';
+    connectingMessage.innerHTML = message;
+    console.log(message, err);
+    setTimeout(() => setup(), 5000);
+  }
 }
 
 setup();
